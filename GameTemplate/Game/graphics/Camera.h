@@ -1,4 +1,8 @@
 #pragma once
+
+#define WINDOW_WIDTH  (640)		// ウィンドウの幅
+#define WINDOW_HEIGHT (480)		// ウィンドウの高さ
+
 class Camera
 {
 public:
@@ -87,6 +91,7 @@ public:
 	{
 		m_viewAngle = angle;
 	}
+	
 private:
 	CMatrix	m_viewMatrix = CMatrix::Identity();		//ビュー行列。
 	CMatrix m_projMatrix = CMatrix::Identity();		//プロジェクション行列。
@@ -96,6 +101,16 @@ private:
 	float m_viewAngle = CMath::DegToRad(60.0f);		//画角。
 	float m_far = 10000.0f;							//遠い平面までの距離。
 	float m_near = 1.0f;							//近平面までの距離。
+
+	typedef struct D3DVIEWPORT9 {					//ビューポート
+		DWORD X;		//左上隅のx座標
+		DWORD Y;		//左上隅のy座標
+		DWORD Width = WINDOW_WIDTH / 2;	//横幅
+		DWORD Height = WINDOW_WIDTH / 2;	//縦幅
+		float MinZ;		//深度値の最小値　通常は0.0f
+		float MaxZ;		//深度値の最大値  通常は1.0f
+	};
+	D3DVIEWPORT9 m_port[4];							//４画面用のビューポートを作成
 };
 
 extern Camera g_camera3D;		//!<3Dカメラ。
