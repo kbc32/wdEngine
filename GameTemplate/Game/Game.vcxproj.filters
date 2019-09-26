@@ -120,6 +120,7 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -214,10 +215,12 @@
     <ClInclude Include="Sprite.h">
       <Filter>graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Map.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Map001.FBX" />
   </ItemGroup>
 </Project>

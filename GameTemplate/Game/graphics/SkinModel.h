@@ -17,6 +17,7 @@ class SkinModel
 public:
 	//メッシュが見つかったときのコールバック関数。
 	using OnFindMesh = std::function<void(const std::unique_ptr<DirectX::ModelMeshPart>&)>;
+	
 	/*!
 	*@brief	デストラクタ。
 	*/
@@ -28,6 +29,7 @@ public:
 	*@param[in] enFbxUpAxis		fbxの上軸。デフォルトはenFbxUpAxisZ。
 	*/
 	void Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis = enFbxUpAxisZ);
+	
 	/*!
 	*@brief	モデルをワールド座標系に変換するためのワールド行列を更新する。
 	*@param[in]	position	モデルの座標。
@@ -35,6 +37,7 @@ public:
 	*@param[in]	scale		モデルの拡大率。
 	*/
 	void UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVector3 scale);
+	
 	/*!
 	*@brief	ボーンを検索。
 	*@param[in]		boneName	ボーンの名前。
@@ -45,6 +48,7 @@ public:
 		int boneId = m_skeleton.FindBoneID(boneName);
 		return m_skeleton.GetBone(boneId);
 	}
+
 	/*!
 	*@brief	モデルを描画。
 	*@param[in]	viewMatrix		カメラ行列。
@@ -53,6 +57,7 @@ public:
 	*  カメラ座標系の3Dモデルをスクリーン座標系に変換する行列です。
 	*/
 	void Draw( CMatrix viewMatrix, CMatrix projMatrix );
+
 	/*!
 	*@brief	スケルトンの取得。
 	*/
@@ -60,6 +65,7 @@ public:
 	{
 		return m_skeleton;
 	}
+
 	/*!
 	*@brief	メッシュを検索する。
 	*@param[in] onFindMesh		メッシュが見つかったときのコールバック関数
@@ -72,6 +78,7 @@ public:
 			}
 		}
 	}
+
 	/*!
 	*@brief	SRVのレジスタ番号。
 	*/
@@ -84,16 +91,36 @@ private:
 	*@brief	サンプラステートの初期化。
 	*/
 	void InitSamplerState();
+
 	/*!
 	*@brief	定数バッファの作成。
 	*/
 	void InitConstantBuffer();
+
 	/*!
 	*@brief	スケルトンの初期化。
 	*@param[in]	filePath		ロードするcmoファイルのファイルパス。
 	*/
 	void InitSkeleton(const wchar_t* filePath);
-	
+
+	/// <summary>
+	/// アルベドテクスチャを初期化
+	/// </summary>
+	void InitAlbedoTexture();
+
+	/// <summary>
+	/// ディレクションライト
+	/// </summary>
+	struct DirectionLight {
+		CVector4 direction[4];
+		CVector4 color[4];
+	};
+
+	/// <summary>
+	/// ディレクションライトを初期化
+	/// </summary>
+	void InitDirectionLight();
+
 private:
 	//定数バッファ。
 	struct SVSConstantBuffer {
@@ -101,11 +128,15 @@ private:
 		CMatrix mView;
 		CMatrix mProj;
 	};
-	EnFbxUpAxis			m_enFbxUpAxis = enFbxUpAxisZ;	//!<FBXの上方向。
-	ID3D11Buffer*		m_cb = nullptr;					//!<定数バッファ。
-	Skeleton			m_skeleton;						//!<スケルトン。
-	CMatrix				m_worldMatrix;					//!<ワールド行列。
-	DirectX::Model*		m_modelDx;						//!<DirectXTKが提供するモデルクラス。
-	ID3D11SamplerState* m_samplerState = nullptr;		//!<サンプラステート。
+	EnFbxUpAxis			m_enFbxUpAxis = enFbxUpAxisZ;			//!<FBXの上方向。
+	ID3D11Buffer*		m_cb = nullptr;							//!<定数バッファ。
+	ID3D11Buffer*		m_lightCb = nullptr;					//!<ライト用の定数バッファ。
+	DirectionLight		m_dirLight;								//!<ディレクションライト。
+	Skeleton			m_skeleton;								//!<スケルトン。
+	CMatrix				m_worldMatrix;							//!<ワールド行列。
+	DirectX::Model*		m_modelDx;								//!<DirectXTKが提供するモデルクラス。
+	ID3D11SamplerState* m_samplerState = nullptr;				//!<サンプラステート。
+	ID3D11ShaderResourceView* m_albedoTextureSRV = nullptr;		//!<アルベドテクスチャのSRV
+	//const int NUM_DIRECTIONLIGHT = 1;							//ディレクションライトの本数
 };
 
