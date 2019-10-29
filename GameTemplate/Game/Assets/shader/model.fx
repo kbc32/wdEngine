@@ -27,13 +27,24 @@ cbuffer VSPSCb : register(b0){
 	float4x4 mView;
 	float4x4 mProj;
 };
+//ディレクションライトの本数
+static const int NUM_DIRECTION_LIG = 1;
+
+/*!
+ *@brief	ディレクションライト。
+ */
+struct SDirectionLight {
+	float3 direction[NUM_DIRECTION_LIG];	//ディレクションライト
+	float4 color[NUM_DIRECTION_LIG];		//ライトのカラー
+	float specPow[NUM_DIRECTION_LIG];		//絞りの強さ
+};
 
 /*!
  * @brief	ライト用の定数バッファ。
  */
-cbuffer LightCb : register(b0) {
-	float3 dligDirection[4];
-	float4 dligColor[4];
+cbuffer LightCb : register(b0) {	
+	SDirectionLight directionLight;				//ディレクションライト
+	float3 eyePos;								//カメラの座標
 }
 
 
@@ -71,6 +82,7 @@ struct PSInput{
 	float3 Normal		: NORMAL;
 	float3 Tangent		: TANGENT;
 	float2 TexCoord 	: TEXCOORD0;
+	float3 worldPos		: TEXCOORD1;	//ワールド座標
 };
 /*!
  *@brief	スキン行列を計算。
@@ -96,6 +108,9 @@ PSInput VSMain( VSInputNmTxVcTangent In )
 {
 	PSInput psInput = (PSInput)0;
 	float4 pos = mul(mWorld, In.Position);
+	//鏡面反射用にワールド座標をピクセルシェーダーに移す
+	psInput.worldPos = pos;
+
 	pos = mul(mView, pos);
 	pos = mul(mProj, pos);
 	psInput.Position = pos;
@@ -157,11 +172,37 @@ float4 PSMain( PSInput In ) : SV_Target0
 		In.TexCoord
 	);
 
-	//ディレクションライトの拡散反射光を計算する。
 	float3 lig = 0.0f;
-	for (int i = 0; i < 4; i++) {
-		lig += max(0.0f, dot(In.Normal * -1.0f, dligDirection[i])) * dligColor[i];
+
+	//ディレクションライトの拡散反射光を計算する。
+	for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
+		lig += max(0.0f, dot(In.Normal * -1.0f, directionLight.direction[i])) * directionLight.color[i];
 	}
+
+	//鏡面反射を計算する
+	float3 R[NUM_DIRECTION_LIG], E[NUM_DIRECTION_LIG];
+	float specPower[NUM_DIRECTION_LIG];
+	//ディレクションライトの鏡面反射を計算する
+	{
+		for (int i = 0; i < NUM_DIRECTION_LIG; i++)
+		{
+			//反射ベクトルRを求める
+			R[i] = directionLight.direction[i] + 2
+				* dot(In.Normal, -directionLight.direction[i])
+				* In.Normal;
+
+			//視点からライトを当てる物体に伸びるベクトルを求める
+			E[i] = normalize(eyePos - In.worldPos);
+			//RとEのベクトルの内積を計算する
+			specPower[i] = max(0, dot(R[i], -E[i]));
+
+			//スペキュラ反射をライトに加算する
+			lig += directionLight.color[i].xyz * pow(specPower[i], directionLight.specPow[i]);
+		}
+	}
+	//環境光を当てる
+	lig += float3(0.4f, 0.4f, 0.4f);
+
 	float4 finalColor = float4 (0.0f, 0.0f, 0.0f, 1.0f);
 	finalColor.xyz = albedoColor.xyz * lig;
 	return finalColor;

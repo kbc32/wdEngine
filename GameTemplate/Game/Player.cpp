@@ -60,6 +60,7 @@ void Player::Move()
 		m_position.z += 5.0f;
 	}
 
+
 	//移動処理（左スティック）
 	//float lStick_x = g_pad->GetLStickXF;
 	//float lStick_y = g_pad->GetLStickYF;

@@ -4,6 +4,7 @@
 #include "level/Level.h"
 #include "graphics/Camera.h"
 #include "CGameObjectManager.h"
+#include "Map.h"
 
 
 ///////////////////////////////////////////////////////////////////
@@ -21,6 +22,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//プレイヤー
 	Player player;
+	Map map;
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
@@ -44,6 +46,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		//プレイヤーの描画。
 		player.Draw();
+
+		//確認用マップの更新と描画
+		map.Update();
+		map.Render();
+
 
 		//カメラの更新。
 		g_camera3D.Update();

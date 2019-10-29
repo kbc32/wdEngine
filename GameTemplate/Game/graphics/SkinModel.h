@@ -1,6 +1,7 @@
 #pragma once
-
 #include "Skeleton.h"
+
+const int NUM_DIRECTION_LIG = 1;							//ディレクションライトの本数
 
 /*!
 *@brief	FBXの上方向。
@@ -111,15 +112,34 @@ private:
 	/// <summary>
 	/// ディレクションライト
 	/// </summary>
-	struct DirectionLight {
-		CVector4 direction[4];
-		CVector4 color[4];
+	struct SDirectionLight {
+		CVector4 direction[NUM_DIRECTION_LIG];	//ディレクションライト
+		CVector4 color[NUM_DIRECTION_LIG];		//ライトの色
+		float specPow[NUM_DIRECTION_LIG];		//鏡面反射の絞り。
 	};
 
 	/// <summary>
 	/// ディレクションライトを初期化
 	/// </summary>
 	void InitDirectionLight();
+
+	/// <summary>
+	/// ライトの構造体
+	/// </summary>
+	struct SLight {
+		SDirectionLight		directionLight;		//ディレクションライト
+		CVector3			eyePos;				//視点の座標。
+	};
+
+	/// <summary>
+	/// 引数で渡された整数値を１６の倍数に切り上げる
+	/// </summary>
+	/// <param name="n">n	整数値</param>
+	/// <returns>	n を１６の倍数に切り上げた値</returns>
+	int Raundup16(int n)
+	{
+		return (((n - 1) / 16) + 1) * 16;
+	}
 
 private:
 	//定数バッファ。
@@ -131,12 +151,11 @@ private:
 	EnFbxUpAxis			m_enFbxUpAxis = enFbxUpAxisZ;			//!<FBXの上方向。
 	ID3D11Buffer*		m_cb = nullptr;							//!<定数バッファ。
 	ID3D11Buffer*		m_lightCb = nullptr;					//!<ライト用の定数バッファ。
-	DirectionLight		m_dirLight;								//!<ディレクションライト。
+	SDirectionLight		m_dirLight;								//!<ディレクションライト。
+	SLight				m_light;								//!<ライト構造体
 	Skeleton			m_skeleton;								//!<スケルトン。
 	CMatrix				m_worldMatrix;							//!<ワールド行列。
 	DirectX::Model*		m_modelDx;								//!<DirectXTKが提供するモデルクラス。
 	ID3D11SamplerState* m_samplerState = nullptr;				//!<サンプラステート。
 	ID3D11ShaderResourceView* m_albedoTextureSRV = nullptr;		//!<アルベドテクスチャのSRV
-	//const int NUM_DIRECTIONLIGHT = 1;							//ディレクションライトの本数
 };
-
