@@ -5,6 +5,7 @@
 #include "graphics/Camera.h"
 #include "CGameObjectManager.h"
 #include "Map.h"
+#include "Game.h"
 
 
 ///////////////////////////////////////////////////////////////////
@@ -20,9 +21,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera3D.SetTarget({ 0.0f, 100.0f, 0.0f });
 	g_camera3D.SetFar(10000.0f);
 
-	//プレイヤー
-	Player player;
-	Map map;
+	////プレイヤー
+	//Player player;
+	//Map map;
+
+	Game m_game;
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
@@ -41,16 +44,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//物理エンジンの更新。
 		g_physics.Update();
 
-		//プレイヤーの更新。
-		player.Update();
-
-		//プレイヤーの描画。
-		player.Draw();
-
-		//確認用マップの更新と描画
-		map.Update();
-		map.Render();
-
+		//ゲームクラスの更新
+		m_game.Update();
+		//ゲームクラスの描画
+		m_game.Render();
 
 		//カメラの更新。
 		g_camera3D.Update();
