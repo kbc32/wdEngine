@@ -102,15 +102,16 @@ private:
 	float m_far = 10000.0f;							//遠い平面までの距離。
 	float m_near = 1.0f;							//近平面までの距離。
 
-	typedef struct D3DVIEWPORT9 {					//ビューポート
-		DWORD X;		//左上隅のx座標
-		DWORD Y;		//左上隅のy座標
-		DWORD Width = WINDOW_WIDTH / 2;	//横幅
-		DWORD Height = WINDOW_WIDTH / 2;	//縦幅
-		float MinZ;		//深度値の最小値　通常は0.0f
-		float MaxZ;		//深度値の最大値  通常は1.0f
-	};
-	D3DVIEWPORT9 m_port[4];							//４画面用のビューポートを作成
+	//typedef struct D3DVIEWPORT9 {					//ビューポート
+	//	DWORD X;		//左上隅のx座標
+	//	DWORD Y;		//左上隅のy座標
+	//	DWORD Width = WINDOW_WIDTH;	//横幅
+	//	DWORD Height = WINDOW_WIDTH;	//縦幅
+	//	float MinZ;		//深度値の最小値　通常は0.0f
+	//	float MaxZ;		//深度値の最大値  通常は1.0f
+	//};
+	////4画面用のビューポートを作成
+	//D3DVIEWPORT9 m_port[4];
 };
 
 extern Camera g_camera3D;		//!<3Dカメラ。

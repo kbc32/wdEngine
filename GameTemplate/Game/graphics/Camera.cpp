@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Camera.h"
 
+
 Camera g_camera3D;		//3DƒJƒƒ‰B
 
 void Camera::Update()

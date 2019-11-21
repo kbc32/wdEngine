@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Map.h"
 
+
 class Game : public IGameObject
 {
 public:
@@ -24,8 +25,9 @@ public:
 	void Render();
 
 private:
-	
-	Player player;			//プレイヤー
+
+	//プレイヤー4人分
+	Player player[4];
 	Map map;				//マップ
 };
 

@@ -21,7 +21,9 @@ Game::~Game()
 /// </summary>
 void Game::Update()
 {
-	player.Update();
+	for (auto& pl : player) {
+		pl.Update();
+	}
 	map.Update();
 }
 
@@ -30,6 +32,8 @@ void Game::Update()
 /// </summary>
 void Game::Render()
 {
-	player.Draw();
+	for (auto& pl : player) {
+		pl.Draw();
+	}
 	map.Render();
 }

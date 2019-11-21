@@ -26,6 +26,11 @@ void GraphicsEngine::EndRender()
 	//バックバッファとフロントバッファを入れ替える。
 	m_pSwapChain->Present(2, 0);
 }
+void GraphicsEngine::SetViewport(int viewportNum)
+{
+	m_pd3dDeviceContext->RSSetViewports(1, &viewport[viewportNum]);
+}
+
 void GraphicsEngine::Release()
 {
 	if (m_rasterizerState != NULL) {
@@ -142,13 +147,26 @@ void GraphicsEngine::Init(HWND hWnd)
 	//ラスタライザとビューポートを初期化。
 	m_pd3dDevice->CreateRasterizerState(&desc, &m_rasterizerState);
 
-	D3D11_VIEWPORT viewport;
-	viewport.Width = FRAME_BUFFER_W;
-	viewport.Height = FRAME_BUFFER_H;
-	viewport.TopLeftX = 0;
-	viewport.TopLeftY = 0;
-	viewport.MinDepth = 0.0f;
-	viewport.MaxDepth = 1.0f;
-	m_pd3dDeviceContext->RSSetViewports(1, &viewport);
+	//4人用のビューポートを作成
+	//D3D11_VIEWPORT viewport[4]; //0から左上、左下、右上、右下
+	viewport[0].TopLeftX = 0;
+	viewport[0].TopLeftY = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		viewport[i].Width = FRAME_BUFFER_W / 2;
+		viewport[i].Height = FRAME_BUFFER_H / 2;
+		viewport[i].MinDepth = 0.0f;
+		viewport[i].MaxDepth = 1.0f;
+	}
+	viewport[1].TopLeftX = 0.0f;
+	viewport[1].TopLeftY = FRAME_BUFFER_H / 2;
+
+	viewport[2].TopLeftX = FRAME_BUFFER_W / 2;
+	viewport[2].TopLeftY = 0.0f;
+
+	viewport[3].TopLeftX = FRAME_BUFFER_W / 2;
+	viewport[3].TopLeftY = FRAME_BUFFER_H / 2;
+
+	m_pd3dDeviceContext->RSSetViewports(1, &viewport[0]);
 	m_pd3dDeviceContext->RSSetState(m_rasterizerState);
 }
