@@ -52,7 +52,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		//カメラの更新。
 		g_camera3D.Update();
-
+		////プレイヤー四人分の更新処理
+		//for (auto& ca : g_camera3D) {
+		//	//更新処理
+		//	ca.Update();
+		//}
 		//ゲームクラスの更新
 		m_game.Update();
 		//描画終了。
