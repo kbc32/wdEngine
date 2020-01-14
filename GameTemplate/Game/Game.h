@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "graphics/Camera.h"
+#include "PlayerCamera.h"
 
 
 class Game : public IGameObject
@@ -23,15 +24,16 @@ public:
 	/// <summary>
 	/// 描画処理。
 	/// </summary>
-	void Render();
-
+	void Render(int cameraNo);
+	//Camera g_camera3D;		//3Dカメラ。
 private:
-
+	
 	//プレイヤー4人分
 	Player player[4];
-	//カメラ4人分
-	//Camera g_camera3D[4];
+	//プレイヤーカメラ
+	PlayerCamera playercamera[4];
 	Map map;				//マップ
-	int PadNom = 0;			//パッド番号
+	int PadNom = 0;			//パッドの番号
+	int CameraNom = 0;		//カメラの番号
 };
 

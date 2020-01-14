@@ -91,7 +91,7 @@ public:
 	{
 		m_viewAngle = angle;
 	}
-	
+
 private:
 	CMatrix	m_viewMatrix = CMatrix::Identity();		//ビュー行列。
 	CMatrix m_projMatrix = CMatrix::Identity();		//プロジェクション行列。
@@ -103,4 +103,4 @@ private:
 	float m_near = 1.0f;							//近平面までの距離。
 };
 
-extern Camera g_camera3D;		//!<3Dカメラ。
+extern Camera g_camera3D[4];		//!<3Dカメラ。

@@ -8,7 +8,7 @@ public:
 	Map();
 	~Map();
 	void Update();
-	void Render();
+	void Render(int cameraNo);
 private:
 	CQuaternion m_quarenion = { 0.0f, 0.0f, 0.0f, 1.0f };
 	SkinModel m_MapModel;

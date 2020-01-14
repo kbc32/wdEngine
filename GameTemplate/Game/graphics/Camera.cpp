@@ -2,10 +2,11 @@
 #include "Camera.h"
 
 
-Camera g_camera3D;		//3Dカメラ。
+Camera g_camera3D[4];		//3Dカメラ。
 
 void Camera::Update()
 {
+
 	//ビュー行列を計算。
 	m_viewMatrix.MakeLookAt(
 		m_position,
@@ -19,4 +20,5 @@ void Camera::Update()
 		m_near,
 		m_far
 	);
+
 }

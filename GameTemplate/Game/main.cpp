@@ -17,9 +17,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
 
 	//カメラを初期化。
-	g_camera3D.SetPosition({ 0.0f, 100.0f, 300.0f });
-	g_camera3D.SetTarget({ 0.0f, 100.0f, 0.0f });
-	g_camera3D.SetFar(10000.0f);
+	g_camera3D[0].SetPosition({ 0.0f, 100.0f, 300.0f });
+	g_camera3D[0].SetTarget({ 0.0f, 100.0f, 0.0f });
+	g_camera3D[0].SetFar(10000.0f);
 
 	//ゲームクラスを作成
 	Game m_game;
@@ -35,28 +35,22 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		g_graphicsEngine->BegineRender();
 
 		//４画面分割描画処理
-		for (int i = 0; i < 4; i++)
+		for (int cameraNo = 0; cameraNo < 4; cameraNo++)
 		{
 			//書き込むビューポートを設定
-			g_graphicsEngine->SetViewport(i);
+			g_graphicsEngine->SetViewport(cameraNo);
 			//ゲームパッドの更新。	
 			for (auto& pad : g_pad) {
 				pad.Update();
 			}
 			//ゲームクラスの描画
-			m_game.Render();
+			m_game.Render(cameraNo);
 			
 		}
+
 		//物理エンジンの更新。
 		g_physics.Update();
-
-		//カメラの更新。
-		g_camera3D.Update();
-		////プレイヤー四人分の更新処理
-		//for (auto& ca : g_camera3D) {
-		//	//更新処理
-		//	ca.Update();
-		//}
+		
 		//ゲームクラスの更新
 		m_game.Update();
 		//描画終了。

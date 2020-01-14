@@ -10,7 +10,7 @@ public:
 	/// <summary>
 	/// •`‰æ
 	/// </summary>
-	virtual void Render() = 0;
+	virtual void Render();
 
 	/// <summary>
 	/// íœƒtƒ‰ƒO‚ğ—§‚Ä‚é

@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "HID/Pad.h"
+#include "PlayerCamera.h"
 
+int g_playerNom = 4;//プレイヤー人数
 
 Player::Player()
 {
@@ -15,9 +17,6 @@ Player::Player()
 		4.0f,
 		m_position
 	);
-
-	//カメラ移動用にカメラの初期座標を持ってくる
-	m_CameraPosition = g_camera3D.GetPosition();
 }
 
 
@@ -29,15 +28,16 @@ void Player::Update()
 {
 	//移動処理
 	Move();
+	
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 }
 
-void Player::Draw()
+void Player::Draw(int cameraNo)
 {
 	m_model.Draw(
-		g_camera3D.GetViewMatrix(), 
-		g_camera3D.GetProjectionMatrix()
+		g_camera3D[cameraNo].GetViewMatrix(),
+		g_camera3D[cameraNo].GetProjectionMatrix()
 	);
 }
 
@@ -61,16 +61,14 @@ void Player::Move()
 	m_moveSpeed.z = 0.0f;
 	
 	//m_moveSpeed.y -= 980.0f * GameTime().GetFrameDeltaTime();
-	m_moveSpeed.x -= lStick_x * 200.0f;	//奥方向への移動速度を加算。
+	m_moveSpeed.x -= lStick_x * 200.0f;		//奥方向への移動速度を加算。
 	m_moveSpeed.z -= lStick_y * 200.0f;		//右方向への移動速度を加算。
 	
 											
-	m_moveSpeed.y -= 9.8f;				//重力
+	m_moveSpeed.y -= 9.8f;				//重力();
 
 	//キャラクターコントローラーを使用して、座標を更新。
-	m_position = Characon.Execute(1.0f/60.0f,m_moveSpeed);
-	m_CameraPosition = Characon.Execute(1.0f / 60.0f, m_moveSpeed);
-	g_camera3D.SetTarget(m_CameraPosition);
+	m_position = Characon.Execute(1.0f / 60.0f, m_moveSpeed);
 }
 
 CVector3 Player::GetPlayerPosition()
@@ -86,4 +84,14 @@ void Player::SetPadNom(int Nom)
 void Player::SetPlayerPosition(CVector3 position)
 {
 	m_position = position;
+}
+
+CVector3 Player::GetMoveSpeed()
+{
+	return m_moveSpeed;
+}
+
+int Player::GetPadNo()
+{
+	return PadNom;
 }

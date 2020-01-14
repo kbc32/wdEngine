@@ -22,10 +22,10 @@ void Map::Update()
 	m_MapModel.UpdateWorldMatrix(m_position, m_quarenion,CVector3::One());
 }
 
-void Map::Render()
+void Map::Render(int cameraNo)
 {
 	m_MapModel.Draw(
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
+		g_camera3D[cameraNo].GetViewMatrix(),
+		g_camera3D[cameraNo].GetProjectionMatrix()
 	);
 }

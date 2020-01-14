@@ -1,15 +1,32 @@
 #pragma once
 #include "CGameObjectManager.h"
+#include "Player.h"
 
+class Player;
 class PlayerCamera
 {
 public:
 	PlayerCamera();
 	~PlayerCamera();
+
 	/// <summary>
 	/// アップデート関数
 	/// </summary>
-	void Update();
-	
+	void Update(int PlayerNo);
+
+	/// <summary>
+	/// プレイヤーの番号を設定
+	/// </summary>
+	/// <param name="Nom">番号　int型</param>
+	void SetPlayerNo(int Nom);
+
+	void SetCameraNo(int Nom);
+private:
+	//Camera m_gameCamera;	//gameカメラ
+	Player* m_player;	//プレイヤー
+	CVector3 m_toCameraPos = CVector3::Zero(); //カメラの座標
+	int PlayerNom = 0;	//プレイヤーの番号
+	int CameraNom; //パッドの番号
+	CVector3 CameraPos;	//カメラの座標
 };
 
