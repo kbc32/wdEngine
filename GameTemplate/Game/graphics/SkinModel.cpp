@@ -160,7 +160,7 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 	m_skeleton.Update(m_worldMatrix);
 }
 
-void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
+void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix,int CameraNo)
 {
 	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
 
@@ -174,7 +174,7 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 	//定数バッファを更新
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &vsCb, 0, 0);
 	//視点の設定
-	m_light.eyePos = g_camera3D[0].GetPosition();
+	m_light.eyePos = g_camera3D[CameraNo].GetPosition();
 	//ライト用の定数バッファを更新。
 	d3dDeviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_light, 0, 0);
 	//定数バッファをGPUに転送。

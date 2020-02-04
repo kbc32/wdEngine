@@ -26,6 +26,7 @@ void Map::Render(int cameraNo)
 {
 	m_MapModel.Draw(
 		g_camera3D[cameraNo].GetViewMatrix(),
-		g_camera3D[cameraNo].GetProjectionMatrix()
+		g_camera3D[cameraNo].GetProjectionMatrix(),
+		cameraNo
 	);
 }

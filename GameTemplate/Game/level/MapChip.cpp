@@ -14,5 +14,5 @@ MapChip::MapChip(const LevelObjectData& objData)
 
 void MapChip::Draw()
 {
-	m_model.Draw(g_camera3D[0].GetViewMatrix(), g_camera3D[0].GetProjectionMatrix());
+	m_model.Draw(g_camera3D[0].GetViewMatrix(), g_camera3D[0].GetProjectionMatrix(),0);
 }

@@ -52,7 +52,7 @@ private:
 	SkinModel m_model;									//スキンモデル。
 	CVector3 m_position = CVector3::Zero();				//プレイヤーのポジション
 	CVector3 m_moveSpeed = CVector3::Zero();			//移動速度。
-	//PlayerCamera m_playerCamera;						//プレイヤー追従用のカメラ
+	CQuaternion m_rotation = CQuaternion::Identity();	//回転。
 
 	int CameraNo;										//カメラの番号
 	CVector3 m_CameraPosition;							//カメラ座標

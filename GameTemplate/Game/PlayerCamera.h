@@ -21,8 +21,12 @@ public:
 	void SetPlayerNo(int Nom);
 
 	void SetCameraNo(int Nom);
+	/// <summary>
+	/// プレイヤーカメラの座標を設定する
+	/// </summary>
+	/// <param name="playerNo">プレイヤーの番号</param>
+	void SetCameraPos(int playerNo);
 private:
-	//Camera m_gameCamera;	//gameカメラ
 	Player* m_player;	//プレイヤー
 	CVector3 m_toCameraPos = CVector3::Zero(); //カメラの座標
 	int PlayerNom = 0;	//プレイヤーの番号

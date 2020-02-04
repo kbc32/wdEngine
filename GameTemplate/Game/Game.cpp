@@ -1,11 +1,21 @@
 #include "stdafx.h"
 #include "Game.h"
 
+Game* Game::m_instance = nullptr;
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
 Game::Game()
 {
+	//サウンドエンジンを初期化
+	m_soundEngine.Init();
+
+	//確認用
+	//ワンショット再生のSE
+	m_se.Init(L"Assets/sound/coinGet.wav");
+
+	m_instance = this;
 }
 
 /// <summary>
@@ -20,6 +30,13 @@ Game::~Game()
 /// </summary>
 void Game::Update()
 {
+	//確認用
+	if (g_pad[0].IsTrigger(enButtonA)) {
+		//Aボタンが押されたらSEを鳴らす。
+		m_se.Play(false);
+	}
+
+
 	//プレイヤー四人分の更新処理
 	for (auto& pl : player) {
 		//使用するゲームパッドの変更
@@ -35,23 +52,15 @@ void Game::Update()
 	//マップの更新
 	map.Update();
 
+	//サウンドの更新
+	m_soundEngine.Update();
+
 	//カメラの更新。
 	for (int i = 0; i < 4; i++)
 	{
 		g_camera3D[i].Update();
-		//playercamera[i].Update(i);
+		playercamera[i].Update(i);
 	}
-	//playercamera.Update();
-	//for (auto& plca : playercamera) {
-	//	//使用するカメラの変更
-	//	plca.SetCameraNo(CameraNom);
-	//	plca.SetPlayerNo(CameraNom);
-	//	//カメラ番号を１加算
-	//	CameraNom++;
-	//	//更新処理
-	//	plca.Update();
-	//}
-
 }
 
 /// <summary>
@@ -62,7 +71,7 @@ void Game::Render(int cameraNo)
 	//プレイヤー四人分の描画処理
 	for (auto& pl : player) {
 		//描画処理
-		pl.Draw(cameraNo);
+		//pl.Draw(cameraNo);
 	}
 	//マップの描画処理
 	map.Render(cameraNo);

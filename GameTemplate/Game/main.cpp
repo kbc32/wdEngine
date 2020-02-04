@@ -17,9 +17,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
 
 	//カメラを初期化。
-	g_camera3D[0].SetPosition({ 0.0f, 100.0f, 300.0f });
-	g_camera3D[0].SetTarget({ 0.0f, 100.0f, 0.0f });
-	g_camera3D[0].SetFar(10000.0f);
+	for (int cameraNo = 0; cameraNo < 4; cameraNo++) {
+		g_camera3D[cameraNo].SetPosition({ 0.0f, 100.0f, 300.0f });
+		g_camera3D[cameraNo].SetTarget({ 0.0f, 100.0f, 0.0f });
+		g_camera3D[cameraNo].SetFar(10000.0f);
+	}
 
 	//ゲームクラスを作成
 	Game m_game;

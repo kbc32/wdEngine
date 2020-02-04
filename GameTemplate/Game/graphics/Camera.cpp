@@ -13,6 +13,7 @@ void Camera::Update()
 		m_target,
 		m_up
 	);
+
 	//プロジェクション行列を計算。
 	m_projMatrix.MakeProjectionMatrix(
 		m_viewAngle,					//画角。

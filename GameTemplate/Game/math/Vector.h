@@ -582,6 +582,20 @@ public:
 		static const CQuaternion identity = { 0.0f,  0.0f, 0.0f, 1.0f };
 		return identity;
 	}
+	/*!
+	*@brief	ベクトルにクォータニオンを適用する。
+	*@param[in,out] v	ベクトル。
+	*/
+	void Apply(CVector4& _v)
+	{
+		DirectX::XMVECTOR xmv = DirectX::XMVector3Rotate(_v, *this);
+		DirectX::XMStoreFloat4(&_v.vec, xmv);
+	}
+	void Apply(CVector3& _v)
+	{
+		DirectX::XMVECTOR xmv = DirectX::XMVector3Rotate(_v, *this);
+		DirectX::XMStoreFloat3(&_v.vec, xmv);
+	}
 };
 //整数型のベクトルクラス。
 __declspec(align(16)) class CVector4i {
