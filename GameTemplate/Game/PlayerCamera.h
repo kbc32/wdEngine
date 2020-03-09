@@ -8,7 +8,10 @@ class PlayerCamera
 public:
 	PlayerCamera();
 	~PlayerCamera();
-
+	/// <summary>
+	/// スタート関数
+	/// </summary>
+	void Start(int PlayerNo);
 	/// <summary>
 	/// アップデート関数
 	/// </summary>
@@ -29,6 +32,11 @@ public:
 private:
 	Player* m_player;	//プレイヤー
 	CVector3 m_toCameraPos = CVector3::Zero(); //カメラの座標
+
+	float m_angle;
+	float m_angle2;
+	CQuaternion m_rotation;
+
 	int PlayerNom = 0;	//プレイヤーの番号
 	int CameraNom; //パッドの番号
 	CVector3 CameraPos;	//カメラの座標

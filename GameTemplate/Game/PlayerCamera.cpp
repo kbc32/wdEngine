@@ -4,8 +4,7 @@
 
 PlayerCamera::PlayerCamera()
 {
-	//カメラの座標を持ってくる
-	m_toCameraPos.Set(g_camera3D[0].GetPosition());
+	 
 	
 }
 
@@ -14,15 +13,21 @@ PlayerCamera::~PlayerCamera()
 {
 }
 
+void PlayerCamera::Start(int PlayerNo)
+{
+	//カメラの座標を持ってくる
+	m_toCameraPos.Set(g_camera3D[PlayerNo].GetPosition());
+}
+
 void PlayerCamera::Update(int PlayerNo)
 {
 	//カメラを更新。
 	//注視点を計算する。
 	Game* game = Game::GetInstance();
 
-	CVector3 target = game->GetPlayerPosition(PlayerNo);
+	CVector3 pos = game->GetPlayerPosition(PlayerNo);
 	//プレイヤの足元からちょっと上を注視点とする。
-	target.y += 50.0f;
+	pos.y += 50.0f;
 
 	CVector3 toCameraPosOld = m_toCameraPos;
 	//パッドの入力を使ってカメラを回す。
@@ -55,10 +60,10 @@ void PlayerCamera::Update(int PlayerNo)
 	}
 
 	//視点を計算する。
-	CVector3 pos = target + m_toCameraPos;
+	CVector3 target = pos + m_toCameraPos;
 	
-	g_camera3D[PlayerNo].SetPosition(/*pos*/target);
-	g_camera3D[PlayerNo].SetTarget(/*target*/pos);
+	g_camera3D[PlayerNo].SetPosition(pos);
+	g_camera3D[PlayerNo].SetTarget(target);
 }
 
 void PlayerCamera::SetPlayerNo(int Nom)

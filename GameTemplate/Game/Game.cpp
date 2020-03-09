@@ -16,6 +16,11 @@ Game::Game()
 	m_se.Init(L"Assets/sound/coinGet.wav");
 
 	m_instance = this;
+
+	for (int i = 0; i < 4; i++)
+	{
+		playercamera[i].Start(i);
+	}
 }
 
 /// <summary>
@@ -59,6 +64,7 @@ void Game::Update()
 	for (int i = 0; i < 4; i++)
 	{
 		g_camera3D[i].Update();
+		weapon[i].Update(i);
 		playercamera[i].Update(i);
 	}
 }
@@ -72,6 +78,10 @@ void Game::Render(int cameraNo)
 	for (auto& pl : player) {
 		//•`‰æˆ—
 		//pl.Draw(cameraNo);
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		weapon[i].Draw(i);
 	}
 	//ƒ}ƒbƒv‚Ì•`‰æˆ—
 	map.Render(cameraNo);

@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "graphics/Camera.h"
 #include "PlayerCamera.h"
+#include "Weapon.h"
 #include "sound/SoundEngine.h"
 #include "sound/SoundSource.h"
 
@@ -45,6 +46,8 @@ private:
 	CSoundEngine m_soundEngine;		//サウンドエンジン
 	//プレイヤー4人分
 	Player player[4];
+	//武器4人分
+	Weapon weapon[4];
 	//プレイヤーカメラ
 	PlayerCamera playercamera[4];
 	Map map;				//マップ
