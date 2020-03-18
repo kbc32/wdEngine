@@ -22,15 +22,15 @@ Game::Game()
 		playercamera[i].Start(i);
 	}
 
-	//m_level.Init(L"Assets/level/stage_001.tkl", [&](LevelObjectData& objdata)->bool {
-	//	if (wcscmp(objdata.name, L"Coin") == 0)
-	//	{
-	//		//コインなら
-	//		m_coin->SetPosition(objdata.position);
-	//		return true;
-	//	}
-	//	return false;
-	//});
+	m_level.Init(L"Assets/level/stage_001.tkl", [&](LevelObjectData& objdata)->bool {
+		//if (wcscmp(objdata.name, L"Coin") == 0)
+		//{
+		//	//コインなら
+		//	m_coin->SetPosition(objdata.position);
+		//	return true;
+		//}
+		return false;
+	});
 }
 
 /// <summary>
@@ -85,7 +85,7 @@ void Game::Update()
 void Game::Render(int cameraNo)
 {
 	//レベルを描画
-	//m_level.Draw();
+	m_level.Draw(cameraNo);
 	//プレイヤー四人分の描画処理
 	for (auto& pl : player) {
 		//描画処理

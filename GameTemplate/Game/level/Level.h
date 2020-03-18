@@ -51,7 +51,7 @@ public :
 	/*!
 	* @brief	レベルを描画。
 	*/
-	void Draw();
+	void Draw(int cameraNo);
 private:
 	std::vector<MapChipPtr> m_mapChipArray;		//!<マップチップの可変長配列。
 };
