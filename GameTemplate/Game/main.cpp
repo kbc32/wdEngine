@@ -25,7 +25,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//ゲームクラスを作成
 	Game m_game;
-
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{

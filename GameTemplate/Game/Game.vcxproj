@@ -101,6 +101,7 @@
   <ItemGroup>
     <ClCompile Include="CGameObjectManager.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="graphics\animation\Animation.cpp" />
     <ClCompile Include="graphics\animation\AnimationClip.cpp" />
@@ -144,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="CGameObjectManager.h" />
     <ClInclude Include="character\CharacterController.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="graphics\animation\Animation.h" />
     <ClInclude Include="graphics\animation\AnimationClip.h" />
@@ -184,6 +186,7 @@
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="Assets\modelData\Coin.FBX" />
     <MeshContentTask Include="Assets\modelData\Map001.FBX" />
     <MeshContentTask Include="Assets\modelData\Sword.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

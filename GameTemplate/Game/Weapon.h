@@ -18,6 +18,8 @@ private:
 	
 	SkinModel m_weapon;
 	CVector3 m_position;
+	CVector3 pos;
+	CVector3 addPos;
 	float m_angle;
 	float m_angle2;
 	CQuaternion m_rotation;

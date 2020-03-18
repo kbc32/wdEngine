@@ -1,5 +1,8 @@
-﻿  Assets\modelData\Map001.FBX
+﻿  Assets\modelData\Coin.FBX
+  Assets\modelData\Map001.FBX
   Assets\modelData\Sword.FBX
   Assets\modelData\unityChan.fbx
   Weapon.cpp
+  Camera.cpp
+  コードを生成中...
   Game.vcxproj -> C:\Users\GC1832\Desktop\ゲーム制作\wdEngine\wdEngine\GameTemplate\x64\Debug\Game.exe

@@ -21,5 +21,4 @@ void Camera::Update()
 		m_near,
 		m_far
 	);
-
 }

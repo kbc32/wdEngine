@@ -38,18 +38,14 @@ void Weapon::Update(int PlayerNo)
 
 	m_rotation.Multiply(YRot, XRot);
 
-	m_position = game->GetPlayerPosition(PlayerNo);
-
-	CQuaternion PosRot;
-	m_Pos = m_gunLocalPos;
+	pos = g_camera3D[PlayerNo].GetPosition();
+	addPos = g_camera3D[PlayerNo].GetForward() + g_camera3D[PlayerNo].GetRight();
+	pos += addPos * 50.0f;
+	m_position = pos;
 	
-	PosRot.SetRotationDeg(CVector3::AxisY(), m_angle);
-	PosRot.Multiply(m_Pos);
-
-	m_position += m_Pos;
 
 	//ワールド行列の更新。
-	m_weapon.UpdateWorldMatrix(/*m_position*/CVector3::Zero(),m_rotation, CVector3::One()*0.4f);
+	m_weapon.UpdateWorldMatrix(m_position,m_rotation, CVector3::One()*0.4f);
 }
 
 void Weapon::Draw(int PlayerNo)

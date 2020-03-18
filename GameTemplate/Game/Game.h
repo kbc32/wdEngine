@@ -7,6 +7,9 @@
 #include "Weapon.h"
 #include "sound/SoundEngine.h"
 #include "sound/SoundSource.h"
+#include "level/Level.h"
+#include "Coin.h"
+
 
 
 class Game : public IGameObject
@@ -54,6 +57,8 @@ private:
 	int PadNom = 0;			//パッドの番号
 	int CameraNom = 0;		//カメラの番号
 	static Game* m_instance;
+	Level m_level;
+	Coin* m_coin = nullptr;
 
 	//確認用
 	CSoundSource m_se;
