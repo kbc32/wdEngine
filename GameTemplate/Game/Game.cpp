@@ -65,7 +65,7 @@ void Game::Update()
 	PadNom = 0;
 
 	//マップの更新
-	map.Update();
+	//map.Update();
 
 	//サウンドの更新
 	m_soundEngine.Update();
@@ -96,5 +96,5 @@ void Game::Render(int cameraNo)
 		weapon[i].Draw(cameraNo);
 	}
 	//マップの描画処理
-	map.Render(cameraNo);
+	//map.Render(cameraNo);
 }

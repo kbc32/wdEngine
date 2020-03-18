@@ -2,5 +2,11 @@
   Assets\modelData\Map001.FBX
   Assets\modelData\Sword.FBX
   Assets\modelData\unityChan.fbx
-  Level.cpp
+  Game.cpp
+  PlayerCamera.cpp
+c:\users\gc1832\desktop\ゲーム制作\wdengine\wdengine\gametemplate\game\playercamera.cpp(34): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+c:\users\gc1832\desktop\ゲーム制作\wdengine\wdengine\gametemplate\game\playercamera.cpp(35): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+  Weapon.cpp
+  main.cpp
+  コードを生成中...
   Game.vcxproj -> C:\Users\GC1832\Desktop\ゲーム制作\wdEngine\wdEngine\GameTemplate\x64\Debug\Game.exe

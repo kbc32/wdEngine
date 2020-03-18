@@ -53,7 +53,7 @@ private:
 	Weapon weapon[4];
 	//プレイヤーカメラ
 	PlayerCamera playercamera[4];
-	Map map;				//マップ
+	//Map map;				//マップ
 	int PadNom = 0;			//パッドの番号
 	int CameraNom = 0;		//カメラの番号
 	static Game* m_instance;
